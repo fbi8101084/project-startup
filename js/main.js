@@ -1,4 +1,5 @@
 (function() {
-    console.log("Hello Project !");
+    'use strict';
+    console.log('Hello Project !');
 })();
 
