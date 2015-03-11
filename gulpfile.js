@@ -6,6 +6,7 @@ var compass = require('gulp-compass');
 var cssmin = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
+var rename = require('gulp-rename');
 
 var paths = {
     coffee: ['js/main.coffee', 'js/!(main)*.coffee'],
@@ -26,26 +27,21 @@ gulp.task('compass', function () {
 gulp.task('coffee', function() {
     gulp.src(paths.coffee)
         .pipe(coffee({bare: true}).on('error', gutil.log))
+        .pipe(rename('all.src.js'))
+        .pipe(gulp.dest('./dist/js/'))
         .pipe(uglify())
         .pipe(concat('all.min.js'))
         .pipe(gulp.dest('./dist/js/'));
 });
 
-gulp.task('coffee_dev', function() {
-    gulp.src(paths.coffee)
-        .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(concat('all.src.js'))
-        .pipe(gulp.dest('./dist/js/'));
-});
-
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.start('compass', 'coffee', 'coffee_dev');
+    gulp.start('compass', 'coffee');
     gulp.watch(paths.scss[0], ['compass']);
-    gulp.watch(paths.coffee[0], ['coffee_dev', 'coffee']);
-    gulp.watch(paths.coffee[1], ['coffee_dev', 'coffee']);
+    gulp.watch(paths.coffee[0], ['coffee']);
+    gulp.watch(paths.coffee[1], ['coffee']);
 });
 
 gulp.task('default', function() {
-    gulp.start('compass', 'coffee', 'coffee_dev');
+    gulp.start('compass', 'coffee');
 });
