@@ -19,6 +19,10 @@ gulp.task('compass', function () {
             sass: 'css/scss',
             image: 'images'
         }))
+        .on('error', function(error) {
+            console.log(error);
+            this.emit('end');
+        })
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/css'));
 });
