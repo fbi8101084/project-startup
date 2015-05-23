@@ -6,10 +6,9 @@
 =======
 ### 環境設定篇（Mac） - 手動
 - 安裝 nodejs, ruby, compass 請參考他們的官網，如果已經安裝請跳過此步驟
-- 安裝 gulp 輸入 `npm install -g gulp` ，如果已經安裝請跳過此步驟
-- 安裝 bower 輸入 `npm install -g bower` ，如果已經安裝請跳過此步驟
 
-### 環境設定篇（Mac） - 自動 
+### 環境設定篇（Mac） - 自動
+- 如果尚未安裝 gulp, bower ，下 `make init` 來進行自動安裝。
 - 下 `make` 來安裝各種需要的套件(請確認路徑下有 Makefile 檔案)
 - 下 `gulp watch` ，就可以開始實作 js 和 css 了。gulp 會自動幫你 build js 和 css 到 dist/
 
