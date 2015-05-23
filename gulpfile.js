@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
+var autoprefixer = require('gulp-autoprefixer');
 
 var paths = {
     js: ['js/**/*.js'],
@@ -15,6 +16,10 @@ var paths = {
 gulp.task('biuld:css', function () {
     gulp.src(paths.css)
         .pipe(concat('style.min.css'))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/css'));
 });
