@@ -8,6 +8,7 @@ var uglify     = require('gulp-uglify');
 var concat     = require('gulp-concat');
 var rename     = require('gulp-rename');
 var coffeelint = require('gulp-coffeelint');
+var autoprefixer = require('gulp-autoprefixer');
 
 var paths = {
     coffee: ['js/**/!(main)*.coffee', 'js/main.coffee'],
@@ -25,6 +26,10 @@ gulp.task('compass', function () {
             console.log(error);
             this.emit('end');
         })
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/css'));
 });
