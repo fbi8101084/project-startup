@@ -1,16 +1,17 @@
 var gulp = require('gulp');
 
-var coffee = require('gulp-coffee');
-var gutil  = require('gulp-util');
-var compass = require('gulp-compass');
-var cssmin = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
+var coffee     = require('gulp-coffee');
+var gutil      = require('gulp-util');
+var compass    = require('gulp-compass');
+var cssmin     = require('gulp-minify-css');
+var uglify     = require('gulp-uglify');
+var concat     = require('gulp-concat');
+var rename     = require('gulp-rename');
+var coffeelint = require('gulp-coffeelint');
 
 var paths = {
-    coffee: ['js/main.coffee', 'js/!(main)*.coffee'],
-    scss: ['css/scss/*.scss']
+    coffee: ['js/**/!(main)*.coffee', 'js/main.coffee'],
+    scss: ['css/scss/**/*.scss']
 };
 
 gulp.task('compass', function () {
@@ -30,6 +31,12 @@ gulp.task('compass', function () {
 
 gulp.task('coffee', function() {
     gulp.src(paths.coffee)
+        .pipe(coffeelint({
+            "max_line_length": {
+                "level": "ignore"
+            }
+        }))
+        .pipe(coffeelint.reporter())
         .pipe(coffee({bare: true}).on('error', gutil.log))
         .pipe(rename('all.src.js'))
         .pipe(gulp.dest('./dist/js/'))
