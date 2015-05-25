@@ -38,10 +38,10 @@ gulp.task('coffee', function() {
         }))
         .pipe(coffeelint.reporter())
         .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(rename('all.src.js'))
+        .pipe(concat('all.src.js'))
         .pipe(gulp.dest('./dist/js/'))
         .pipe(uglify())
-        .pipe(concat('all.min.js'))
+        .pipe(rename('all.min.js'))
         .pipe(gulp.dest('./dist/js/'));
 });
 
